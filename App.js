@@ -1,11 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
+import Loader  from './components/Load/Loader';
+import {LoaderProvider}  from './components/Load/LoaderContext';
+import 'react-native-tailwindcss';
+import Container from 'toastify-react-native';
+
 
 export default function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
+    
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <Container position="top">
+
+      <LoaderProvider>
+      {loggedIn===true ? <HomeScreen logged={setLoggedIn}/> : <LoginScreen logged={setLoggedIn} />}
+      <Loader/>
+      </LoaderProvider>
+    </Container>
     </View>
   );
 }
