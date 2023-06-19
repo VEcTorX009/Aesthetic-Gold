@@ -8,7 +8,6 @@ const Loader = () => {
   return (
     <Spinner
       visible={isLoading}
-      textContent={'Loading...'}
       textStyle={{ color: '#fff' }}
       animation={'fade'}
       color={"#FFD600"}
