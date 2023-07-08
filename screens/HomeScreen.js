@@ -1,31 +1,74 @@
-import React, { useState } from 'react';
-import { View, TextInput, Linking, Text, Image, styleheet, ImageBackground, Pressable } from 'react-native';
-import { auth } from '../firebaseConfig';
-import { LoaderContext } from '../components/Load/LoaderContext';
-import { useContext } from 'react';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  TextInput,
+  Linking,
+  Text,
+  Image,
+  StyleSheet,
+  ImageBackground,
+  Pressable,
+} from "react-native";
+import { auth } from "../firebaseConfig";
+import { LoaderContext } from "../components/Load/LoaderContext";
+import { useContext } from "react";
 import { useToast } from "react-native-toast-notifications";
-import style from '../styles/global';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import Hero from '../components/Home/Hero';
-import Navbar from '../components/Layout/Navbar';
-import Drawer from 'react-native-drawer';
+import style from "../styles/global";
+import Hero from "../components/Home/Hero";
+import Profile from "../components/Profile/Profile";
+import Navbar from "../components/Layout/Navbar";
+import Notification from "../components/Home/Notification";
 
-const HomeScreen = ({ logged }) => {
+const HomeScreen = ({
+  showemail,
+  showid,
+  showuserdate,
+  logged,
+  username,
+  useremail,
+  userid,
+  showname,
+  userdate,
+  userphoto,
+  showphoto,
+  usertransactions,
+  showusertransaction
+}) => {
   const { setIsLoading } = useContext(LoaderContext);
   const toast = useToast();
+  const [showprofile, setShowprofile] = useState(false);
+  const [managerdetails, setManagerdetails] = useState([{}]);
+  useEffect(() => {
+    setManagerdetails({
+      managername: showname,
+      manageremail: showemail,
+      managerid: showid,
+      managerdate: showuserdate,
+      managerphoto: showphoto,
+      managertransactions: showusertransaction,
+    });
+  }, [showname,showemail,showid,showuserdate,showphoto,showusertransaction]);
+  const [shownotification, setShownotification] = useState(false);
   const handleSignOut = () => {
     setIsLoading(true);
     setTimeout(() => {
       signOut(auth)
         .then(() => {
           logged(false);
+          username("");
+          userphoto("");
+          useremail("");
+          userdate("");
+          usertransactions(0)
+          userid("");
           toast.show(`Have a Great Day!`, {
             type: "info",
           });
         })
         .catch((error) => {
-          toast.show(`${error.message.replaceAll("Firebase:","")}`, { type: "danger" });
+          toast.show(`${error.message.replaceAll("Firebase:", "")}`, {
+            type: "danger",
+          });
         })
         .finally(() => {
           setIsLoading(false);
@@ -35,22 +78,15 @@ const HomeScreen = ({ logged }) => {
 
   return (
     <View style={style.container}>
-    <Drawer
-      content={<Navbar />}
-      open={false} // Set this to true to initially open the sidebar
-      tapToClose={true}
-      openDrawerOffset={0.3}
-      panCloseMask={0.3}
-      negotiatePan={true}
-    >
-      <ImageBackground
-        source={require('../assets/background.png')}
-        style={style.backgroundImage}
-      >
-      <Navbar/>
-        <Hero/>
-      </ImageBackground>
-      </Drawer>
+      <Navbar
+        prof={setShowprofile}
+        isnotif={shownotification}
+        managername={showname}
+        notif={setShownotification}
+      />
+      {shownotification && <Notification />}
+      {showprofile && <Profile manager={managerdetails} />}
+      <Hero />
     </View>
   );
 };
