@@ -109,7 +109,7 @@ const LoginScreen = ({
         source={require("../assets/background.png")}
         style={style.backgroundImage}
       >
-        <View style={style.background}>
+        <View style={style.zindex}>
           <Image source={require("../assets/logo.png")} style={style.logo} />
           <Text style={style.title}>WELCOME</Text>
           <View>

@@ -4,6 +4,7 @@ import style from "../../styles/global";
 import { ScrollView } from "react-native-gesture-handler";
 import { PanResponder, Animated } from "react-native";
 import FadeInView from "../FadeInView";
+import SlideBackView from "../SlideBackView";
 
 const Notification = () => {
   // implement ur logic to extract notifications for the user and also do what when the users deletes the noitifications
@@ -118,7 +119,6 @@ const Notification = () => {
   return (
     <View style={style.notficationbody}>
       <View style={style.notificationcontainer}>
-        <FadeInView>
           <Text style={[style.heading, style.bigheading]}>NOTIFICATIONS</Text>
           <ScrollView style={style.marginTop}>
             {notification.map((item) => {
@@ -127,6 +127,7 @@ const Notification = () => {
                 <View key={id}>
                   <Animated.View style={[panStyle(id)]}>
                     {responders[id] && (
+        <SlideBackView>
                       <View {...responders[id].panHandlers}>
                         <View style={style.notificationboxes}>
                           <View>
@@ -172,13 +173,13 @@ const Notification = () => {
                           </View>
                         </View>
                       </View>
+        </SlideBackView>
                     )}
                   </Animated.View>
                 </View>
               );
             })}
           </ScrollView>
-        </FadeInView>
       </View>
     </View>
   );

@@ -24,41 +24,48 @@ import {
   faUser,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  ToastAndroid,
+  Platform,
+  AlertIOS,
+} from 'react-native';
 import style from "../../styles/global";
-const Navbar = ({ prof, notif, managername, isnotif }) => {
+const Navbar = ({ prof, notif, managername, isnotif,add,isadd,info,Showinfo }) => {
   const [sidebar, setSidebar] = useState(false);
   const slideAnim = React.useRef(new Animated.Value(-300)).current;
   const contactdeveloper = () => {
     const body = `Hi I am ${managername}, I was struggling with Aesthetic Gold App`;
     const encodedBody = encodeURIComponent(body);
-    Linking.openURL(`mailto:tanayupreti@gmail.com?subject=Hello+I+need+help+with+Aesthetic+Gold+App&body=${encodedBody}`);
+    Linking.openURL(
+      `mailto:tanayupreti@gmail.com?subject=Hello+I+need+help+with+Aesthetic+Gold+App&body=${encodedBody}`
+    );
   };
-  
+
   const contactsupport = () => {
     const body = `Hi I am ${managername}, I need help with Aesthetic Gold`;
     const encodedBody = encodeURIComponent(body);
-    Linking.openURL(`mailto:tanayupreti@gmail.com?subject=Hello+Support&body=${encodedBody}`);
+    Linking.openURL(
+      `mailto:tanayupreti@gmail.com?subject=Hello+Support&body=${encodedBody}`
+    );
   };
-  
 
   const showinfo = () => {
     Alert.alert(
-      'Aesthetic Gold ©️ 2023',
-      'All Trademarks are Registered',
+      "Aesthetic Gold ©️ 2023",
+      "All Trademarks are Registered",
       [
         {
-          text: 'Contact Developer Team',
-          style: 'cancel',
+          text: "Contact Developer Team",
+          style: "cancel",
           onPress: () => contactdeveloper(),
         },
         {
-          text: 'Contact Support',
+          text: "Contact Support",
           onPress: () => contactsupport(),
         },
         {
-          text: 'OK',
-          onPress: () => console.log('OK Pressed'),
+          text: "OK",
+          onPress: () => console.log("OK Pressed"),
         },
       ],
       { cancelable: true }
@@ -67,6 +74,13 @@ const Navbar = ({ prof, notif, managername, isnotif }) => {
   const showSidebar = () => {
     setSidebar(true);
   };
+  const toast = () => {
+    if (Platform.OS === 'android') {
+      ToastAndroid.show("Online", ToastAndroid.SHORT)
+    } else {
+      AlertIOS.alert("Online");
+    }
+  };
 
   const hideSidebar = () => {
     setSidebar(false);
@@ -74,6 +88,7 @@ const Navbar = ({ prof, notif, managername, isnotif }) => {
   const gotohome = () => {
     notif(false);
     prof(false);
+    add(false)
   };
 
   React.useEffect(() => {
@@ -128,6 +143,24 @@ const Navbar = ({ prof, notif, managername, isnotif }) => {
                 style={style.notificationcross}
               />
             </TouchableOpacity>
+          ) : isadd ? (
+            <TouchableOpacity onPress={() => add(false)}>
+              <FontAwesomeIcon
+                icon={faXmark}
+                size={36}
+                color="white"
+                style={style.notificationcross}
+              />
+            </TouchableOpacity>
+          ) : info ? (
+            <TouchableOpacity onPress={() => Showinfo(false)}>
+              <FontAwesomeIcon
+                icon={faXmark}
+                size={36}
+                color="white"
+                style={style.notificationcross}
+              />
+            </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={() => notif(true)}>
               <FontAwesomeIcon
@@ -173,7 +206,7 @@ const Navbar = ({ prof, notif, managername, isnotif }) => {
                   style={style.navicons}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={showSidebar}>
+              <TouchableOpacity onPress={showinfo}>
                 <FontAwesomeIcon
                   icon={faCircleQuestion}
                   size={30}
@@ -182,7 +215,7 @@ const Navbar = ({ prof, notif, managername, isnotif }) => {
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={style.navbottom} onPress={showinfo}>
+            <TouchableOpacity style={style.navbottom} onPress={toast}>
               <Image
                 source={require("../../assets/logo.png")}
                 style={{ left: -10, width: 50, height: 50 }}

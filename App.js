@@ -11,7 +11,7 @@ import { faCheck, faCross, faWarning } from "@fortawesome/free-solid-svg-icons";
 import { useFonts } from "@expo-google-fonts/akshar";
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [username, setUsername] = useState("");
   const [useremail, setUseremail] = useState("");
   const [userphoto, setUserphoto] = useState("");
@@ -83,7 +83,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },

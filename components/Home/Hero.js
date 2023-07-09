@@ -10,7 +10,7 @@ import {
   ImageBackground,
   TouchableOpacity, 
 } from "react-native";
-import FadeInView from "../FadeInView"
+import SlideInView from "../SlideinView"
 import style from "../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -20,14 +20,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
-const Hero = () => {
-  const [add, setAdd] = useState(false);
-  const [showinfo, setShowinfo] = useState(false);
+const Hero = ({Showinfo,showtransaction}) => {
+  
 
   const [transaction, setTransaction] = useState([{}]);
   useEffect(() => {
     // add logic here to fetch ongoing data from database, use ur logic for database request
     // create array of  each person to transactions[]
+    // u can also use infintie scroll method to add more stuff link - https://levelup.gitconnected.com/react-native-infinite-scrolling-with-react-query-3c2cc69790be
     const fetcheddata = [
       {
         name: "Rahul",
@@ -67,7 +67,7 @@ const Hero = () => {
 
   return (
     <View style={style.background}>
-     <FadeInView>
+     <SlideInView>
 
       <ImageBackground
         source={require("../../assets/background.png")}
@@ -76,7 +76,7 @@ const Hero = () => {
         <ScrollView style={style.scrollView}>
           <TouchableOpacity
             style={[style.buttoncenter, style.button]}
-            onPress={() => setAdd(true)}
+            onPress={() => showtransaction(true)}
           >
             <Text style={style.buttontext}>ADD</Text>
           </TouchableOpacity>
@@ -86,7 +86,7 @@ const Hero = () => {
                 <View key={val} style={style.heroboxes}>
                   <Text style={style.boxtime}>{item.time}</Text>
                   <TouchableOpacity
-                    onPress={() => setShowinfo(true)}
+                    onPress={() => Showinfo(true)}
                     style={style.boxbody}
                   >
                     <View style={style.boxcontainer}>
@@ -122,7 +122,7 @@ const Hero = () => {
           </View>
         </ScrollView>
       </ImageBackground>
-     </FadeInView>
+     </SlideInView>
 
     </View>
   );

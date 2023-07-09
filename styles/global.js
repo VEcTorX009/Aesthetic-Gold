@@ -13,6 +13,38 @@ const style = StyleSheet.create({
     height: 650,
     width: 350,
   },
+  transactiontextcontainer:{
+    top: 50,
+    flex :1,
+    flexDirection: "column",
+    marginBottom : 5,
+  },
+  textcenter:{
+    textAlign: "center"
+  },
+  lessmargin:{
+    top : -115,
+  },
+  transactionbutton:{
+    top: -180,
+    width: 150,
+    left:  50,
+    height: 50,
+    color: "white",
+    backgroundColor: "#363932",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 30,
+  },
+  scanner:{
+    width: 250,
+    height: 250, 
+    padding: 10,
+    top : 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
+  },
   duebuttontext: {
     color: "black",
   },
@@ -207,10 +239,19 @@ const style = StyleSheet.create({
   background: {
     flex: 1,
     top: 50,
+    zIndex: -1,
     width: 400,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(0, 0, 0, 0.2)",
+  },
+  zindex :{
+    flex: 1,
+    width: 400,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.2)",  
+    zindex: 1,
   },
   fullbg: {
     width: width,
@@ -342,6 +383,18 @@ const style = StyleSheet.create({
     position: "absolute",
     left: 30,
     bottom: 50,
+  },
+  addtransactionbody: {
+    position: "absolute",
+    flex: 1,
+    flexDirection: "column",
+    top: 85,
+    zIndex: 999999999999,
+    width: width,
+    left: 20,
+    height: height,
+    backgroundColor: "#362700",
+    alignItems: "center",
   },
 });
 

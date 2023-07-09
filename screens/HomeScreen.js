@@ -18,6 +18,7 @@ import Hero from "../components/Home/Hero";
 import Profile from "../components/Profile/Profile";
 import Navbar from "../components/Layout/Navbar";
 import Notification from "../components/Home/Notification";
+import AddTransaction from "../components/Transaction/AddTransaction";
 
 const HomeScreen = ({
   showemail,
@@ -49,6 +50,8 @@ const HomeScreen = ({
     });
   }, [showname,showemail,showid,showuserdate,showphoto,showusertransaction]);
   const [shownotification, setShownotification] = useState(false);
+  const [showtransaction, setShowtransaction] = useState(false)
+  const [showinfo, setShowinfo] = useState(false)
   const handleSignOut = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -82,11 +85,16 @@ const HomeScreen = ({
         prof={setShowprofile}
         isnotif={shownotification}
         managername={showname}
+        isadd={showtransaction}
+        add={setShowtransaction}
+        info = {showinfo}
+        Showinfo = {setShowinfo}
         notif={setShownotification}
       />
       {shownotification && <Notification />}
       {showprofile && <Profile manager={managerdetails} />}
-      <Hero />
+      {showtransaction && <AddTransaction showtransaction={setShowtransaction}/>}
+      <Hero Showinfo = {setShowinfo} showtransaction={setShowtransaction} />
     </View>
   );
 };
